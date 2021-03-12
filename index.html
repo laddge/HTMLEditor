@@ -4,19 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      .blink {
+      	-webkit-animation: blink 0.5s linear infinite alternate;
+      	animation: blink 0.5s linear infinite alternate;
+      }
+      @-webkit-keyframes blink {
+      	0% {opacity: 0;}
+      	100% {opacity: 1;}
+      }
+      @keyframes blink {
+      	0% {opacity: 0;}
+      	100% {opacity: 1;}
+      }
+    </style>
     <title></title>
 </head>
 <body style="padding: 0;">
 <button onclick="tag('b');" id="b">bold</button>
 <button onclick="tag('h1');" id="h1">見出し</button>
 <div onclick="document.getElementById('input').focus();" style="height: 100vh; width: 100%;">
-<div id="content">|</div>
+<div id="content"><span class="blink">|</span></div>
 <textarea onkeyup="update();" id="input" style="opacity: 0; width: 0;"></textarea>
 </div>
 <script>
     document.getElementById('input').focus();
     function update() {
-        document.getElementById('content').innerHTML = document.getElementById('input').value.replace(/</g, '&lt').replace(/>/g, '&gt').replace(/​/g, '<').replace(/‌/g, '>').replace(/\n/g, '<br>') + '|';
+        document.getElementById('content').innerHTML = document.getElementById('input').value.replace(/</g, '&lt').replace(/>/g, '&gt').replace(/​/g, '<').replace(/‌/g, '>').replace(/\n/g, '<br>') + '<span class="blink">|</span>';
     };
     function tag(name) {
         document.getElementById('input').value += '​' + name + '‌';
