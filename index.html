@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+</head>
+<body style="padding: 0;">
+<button onclick="tag('b');" id="b">bold</button>
+<button onclick="tag('h1');" id="h1">見出し</button>
+<div onclick="document.getElementById('input').focus();" style="height: 100vh; width: 100%;">
+<div id="content">|</div>
+<textarea onkeyup="update();" id="input" style="opacity: 0; width: 0;"></textarea>
+</div>
+<script>
+    document.getElementById('input').focus();
+    function update() {
+        document.getElementById('content').innerHTML = document.getElementById('input').value.replace(/</g, '&lt').replace(/>/g, '&gt').replace(/​/g, '<').replace(/‌/g, '>').replace(/\n/g, '<br>') + '|';
+    };
+    function tag(name) {
+        document.getElementById('input').value += '​' + name + '‌';
+        document.getElementById('input').focus();
+        document.getElementById('input').setSelectionRange(document.getElementById('input').value.length, document.getElementById('input').value.length);
+        update();
+        newname = '/' + name;
+        newname = newname.replace('//', '');
+        document.getElementById(name).setAttribute('id', newname);
+        document.getElementById(newname).setAttribute('onclick', 'tag(\'' + newname + '\');');
+    }
+</script>
+
+</body>
+
+</html>
