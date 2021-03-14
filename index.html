@@ -12,12 +12,12 @@
     <title></title>
 </head>
 <body style="padding: 0;">
-<button onclick="document.execCommand('bold', false); document.getElementById('visual-view').focus();">太字</button>
-<button onclick="document.execCommand('italic', false); document.getElementById('visual-view').focus();">斜体</button>
-<button onclick="document.execCommand('underline', false); document.getElementById('visual-view').focus();">アンダーライン</button>
-<button onclick="document.execCommand('formatBlock', false, '<h1>'); document.getElementById('visual-view').focus();">見出し</button>
-<button onclick="document.execCommand('formatBlock', false, '<p>'); document.getElementById('visual-view').focus();">段落</button>
 <button onclick="toggleEditor();">エディタ切り替え</button>
+<button onclick="document.execCommand('bold', false); document.getElementById('visual-view').focus();" class="forVisual">太字</button>
+<button onclick="document.execCommand('italic', false); document.getElementById('visual-view').focus();" class="forVisual">斜体</button>
+<button onclick="document.execCommand('underline', false); document.getElementById('visual-view').focus();" class="forVisual">アンダーライン</button>
+<button onclick="document.execCommand('formatBlock', false, '<h1>'); document.getElementById('visual-view').focus();" class="forVisual">見出し</button>
+<button onclick="document.execCommand('formatBlock', false, '<p>'); document.getElementById('visual-view').focus();" class="forVisual">段落</button>
 <div id="visual-view" style="display: block; height: 100vh; width: 100%; outline: none;" contenteditable>
 </div>
 <textarea id="code-view" style="display: none; height: 100vh; width: 100%; outline: 1px;"></textarea>
@@ -27,15 +27,22 @@
     document.execCommand('formatBlock', false, '<p>');
     function toggleEditor() {
         visualView = document.getElementById('visual-view');
+        forVisual = document.getElementsByClassName('forVisual');
         codeView = document.getElementById('code-view');
         if(visualView.style.display == 'block') {
             codeView.value = visualView.innerHTML.replace(/\/p>/g, '/p>\n').replace(/\/h1>/g, '/h1>\n');
             visualView.style.display = 'none';
             codeView.style.display = 'block';
+            for(i=0; i<forVisual.length; i++){
+              forVisual[i].style.display = "none";
+            }
         } else {
             visualView.innerHTML = codeView.value;
             codeView.style.display = 'none';
             visualView.style.display = 'block';
+            for(i=0; i<forVisual.length; i++){
+              forVisual[i].style.display = "initial";
+            }
         }
     }
 </script>
