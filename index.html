@@ -29,7 +29,7 @@
         visualView = document.getElementById('visual-view');
         codeView = document.getElementById('code-view');
         if(visualView.style.display == 'block') {
-            codeView.value = visualView.innerHTML.replace(/></g, '>\n<');
+            codeView.value = visualView.innerHTML.replace(/\/p>/g, '/p>\n').replace(/\/h1>/g, '/h1>\n');
             visualView.style.display = 'none';
             codeView.style.display = 'block';
         } else {
